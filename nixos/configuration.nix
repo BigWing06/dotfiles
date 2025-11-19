@@ -8,6 +8,7 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      <home-manager/nixos>
     ];
 
   # Bootloader.
@@ -109,6 +110,7 @@
   environment.systemPackages = with pkgs; [
     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     git
+    gh
     waybar
     dunst
     xdg-desktop-portal-hyprland
@@ -119,8 +121,22 @@
     kitty
   ];
   
+
+  #Adds config alias to shell
   programs.bash.shellAliases = {
     config = "git --git-dir=$HOME/.cfg --work-tree=$HOME";
+  };
+  
+  home-manager.users.jmharroff = {
+    home.stateVersion = "25.05";
+    home.packages = with pkgs; [
+      git
+      gh
+    ];
+    programs.git.enable = true;
+    programs.gh.enable = true;
+    programs.git.userName = "BigWing06";
+    programs.git.userEmail = "166898297+BigWing06@users.noreply.github.com";
   };
 
 
